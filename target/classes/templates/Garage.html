@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Garage</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet"  th:href="@{/assets/vendors/feather/feather.css}" type="text/css" >
+  <link rel="stylesheet"  th:href="@{/assets/vendors/ti-icons/css/themify-icons.css}" type="text/css" >
+
+  <link rel="stylesheet"  th:href="@{/assets/vendors/css/vendor.bundle.base.css}" type="text/css" >
+  <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}" >
+
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet"  th:href="@{/assets/css/vertical-layout-light/style.css}" type="text/css">
+  <!-- endinject -->
+  <link rel="shortcut icon"  th:href="@{/assets/images/favicon.png}" />
+   <link rel="stylesheet"th:href="@{/assets/ownCSS/Service.css}" />
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+   
+      <!-- partial -->
+      <div class="main-panel" style="margin: auto;">   
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h2 class="card-title">Liste Garage</h2>
+                        <button class="btn btn-success btn-rounded btn-icon" onclick="addService()">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                        <div class="content-wrapper"  >
+                          <div class="btn-group" role="group" aria-label="Basic example" ></div>
+                            <a th:href="@{/sender/Garagepagprecedent}" >  <button type="button" class="btn btn-outline-secondary"  >1</button> </a>
+                            <a th:href="@{/sender}"> <button type="button" class="btn btn-outline-secondary" href="#" >X</button> </a>
+                            <a th:href="@{/sender/Garagepagsuivant}"  > <button type="button" class="btn btn-outline-secondary">3</button> </a>
+                          </div>
+                        <div class="table-responsive">
+                          <table class="table table-striped">
+                            <!-- champ existant -->
+                            <thead>
+                              <tr>
+                                  <th>Numero vehicule</th>
+                                   <th>Nom </th>
+                                   <th>Prenom </th>
+                                   <th>date action</th>
+                                   <th>Bleu pour dans le garage Rouge pour autre</th>
+                              </tr>
+                            </thead>
+                              <tbody>
+                                <tr th:each="value, i :${liste}">
+                                  <td th:text="${value.numero}"></td>
+                                  <td th:text="${value.nomutilisateur}"></td>
+                                  <td th:text="${value.prenom}"></td>
+                                  <td th:text="${value.date}"></td>
+                                  <td th:if="${value.entersortie == 1}" >
+                                    <button class="btn btn-info btn-rounded btn-icon" th:onclick="'updateService(' + ${i.index} + ')'">
+                                      <i class="fas fa-edit"></i>
+                                    </button>
+                                  </td>
+                                  <td th:if="${value.entersortie == 0}" >
+                                      <button class="btn btn-danger btn-rounded btn-icon" th:onclick="'updateService(' + ${i.index} + ')'">
+                                          <i class="fas fa-trash-alt"></i>
+                                      </button>
+                                  </td>
+                                </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div id="addService">
+          <div class="content-popup">
+            <span id="closePopup" class="close-popup"><button onclick="closepopup()"><i class="fas fa-times"></i></button></span>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Ajouter Garage</h4>
+                  <form class="forms-sample"  method="post" th:action="@{/sender/Garage}" >
+                          <div class="form-group row">
+                            <label for="exampleFormControlSelect1">Vehicule</label>
+                            <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="idvehicule">
+                              <option th:each="value : ${listevehicule}" 
+                              th:value="${value.idvehicule}" 
+                              th:text="${value.numero}"></option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputUsername1">Date</label>
+                            <input type="date" class="form-control" id="exampleInputUsername1"  name="date">
+                          </div>
+                         
+                          <div class="form-group">
+                            <label for="exampleInputUsername1" th:text="Entersortie" ></label>
+                            <select class="js-example-basic-single w-100" name="entersortie">
+                              <option value="1" >Entrer</option>
+                              <option value="0" >Sortie</option>
+                            </select>
+                          </div>
+                    <button type="submit" class="btn btn-primary mr-2" >Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <th:block th:each="value, i :${liste}">
+          <div  class="service" >
+            <div class="content-popup">
+              <span id="closePopup" class="close-popup"><button  th:onclick="'closepopuppdate(' + ${i.index} + ')'" ><i class="fas fa-plus"></i></button></span>
+              <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Modif</h4>
+                    <form class="forms-sample"  method="post" th:action="@{/sender/Garageup}" >
+                          <div class="form-group">
+                              <input type="hidden" class="form-control" id="exampleInputUsername1"  name="idgarage" th:value="${value.idgarage}" >
+                          </div>
+                         
+                          <div class="form-group">
+                              <label for="exampleInputUsername1" th:text="Date" ></label>
+                              <input type="date" class="form-control" id="exampleInputUsername1"  name="date" th:value="${value.date}" >
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleInputUsername1" th:text="Entersortie" ></label>
+                              <select class="js-example-basic-single w-100" name="entersortie">
+                                <option value="1" >Entrer</option>
+                                <option value="0" >Sortie</option>
+                              </select>
+                          </div>
+                      <button type="submit" class="btn btn-primary mr-2" >Submit</button>
+                    </form>
+                  </div>
+                </div>
+            </div>
+            </div>
+          </div>
+        </th:block>
+
+<!-- partial:../../partials/_footer.html -->
+
+        <!-- partial -->
+      </div>
+    </div>
+      <!-- main-panel ends -->
+    </div> 
+    <!-- page-body-wrapper ends -->
+  </div>
+</body>
+<script  th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
+<script  th:src="@{/assets/js/off-canvas.js}"></script>
+<script  th:src="@{/assets/js/hoverable-collapse.js}" ></script>
+<script th:src="@{/assets/js/template.js}" ></script>
+<script  th:src="@{/assets/js/settings.js}" ></script>
+<script th:src="@{/assets/js/todolist.js}" ></script>
+</html>
+
+<script type="text/javascript">      function addService() {        document.getElementById('addService').style.display='block';
+      }
+      function closepopup() {
+        document.getElementById('addService').style.display='none';
+      }
+      function updateService(id) {
+        console.log(document.getElementsByClassName("service")[parseInt(id)]);
+        document.getElementsByClassName("service")[parseInt(id)].style.display='block';
+      }
+      function closepopuppdate(id) {
+        document.getElementsByClassName("service")[parseInt(id)].style.display='none';
+      }
+      document.getElementById("creation").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+        const formData = new FormData(this); 
+        const headers = new Headers();
+        const formDataObject = {};
+        for (const [key, value] of formData.entries()) {
+            formDataObject[key] = isNaN(value) ? value : parseInt(value, 10);
+        }
+        console.log(formDataObject);
+        headers.append('Content-Type', 'application/json');
+        fetch("/sender/Garage", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(formDataObject)
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+         closepopup();
+    });
+    function updateforme(id){
+      event.preventDefault();
+      const formData = new FormData(document.getElementsByClassName("formulaiupdate")[parseInt(id)]);
+      const headers = new Headers();
+      const formDataObject = {};
+      for (const [key, value] of formData.entries()) {
+          formDataObject[key] = isNaN(value) ? value : parseInt(value, 10);
+      }
+      headers.append('Content-Type', 'application/json');
+      fetch("/sender/Garageup", {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(formDataObject)
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            console.log(data);
+        });
+       closepopuppdate(id);
+    }
+</script>

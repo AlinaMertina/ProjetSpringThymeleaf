@@ -1,0 +1,129 @@
+/home/mertina/Bureau/L3/S5/Evaluation/ProjetSpring/senderMail/src/main/java/com/pack/senderMail/Controlleur/nomtablexxController.java
+package com.pack.senderMail.Controlleur;
+import com.pack.senderMail.Entity.*;
+import com.pack.senderMail.Service.*;
+import java.text.SimpleDateFormat;
+import com.pack.senderMail.Work.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@RestController
+@RequestMapping
+public class nomtablexxController {
+
+ private final nomtablexxService mintableService;
+    
+    @Autowired
+    public nomtablexxController(nomtablexxService mintableService){
+        this.mintableService= mintableService;
+    }
+
+    @GetMapping("/nomapplication/mintables")
+    public Returntype findAll(){
+        Returntype returntype = new Returntype();
+        try {
+            returntype = new Returntype(null,mintableService.findAll());
+        } catch (Exception e) {
+            returntype = new Returntype(e.getMessage(),null);
+            return returntype;
+        }
+        return returntype;
+    }
+    primaryKey
+    @GetMapping("/nomapplication/mintable")
+    public Returntype findOne( @RequestParam("id") Typexx idnomtablexx ){
+        Returntype returntype = new Returntype();
+        try {
+            returntype = new Returntype(null,mintableService.findById(idnomtablexx));
+        } catch (Exception e) {
+            returntype = new Returntype(e.getMessage(),null);
+            return returntype;
+        }
+        return returntype;
+    }
+    finprimaryKey
+
+    primaryKey
+    @DeleteMapping("/nomapplication/mintable")
+    public Returntype  delete(@RequestParam("id") Typexx idnomtablexx){
+        Returntype returntype = new Returntype();
+        try {
+            mintableService.delete(idnomtablexx);
+            returntype = new Returntype(null,"delete");
+        } catch (Exception e) {
+            returntype = new Returntype(e.getMessage(),null);
+            return returntype;
+        }
+        return returntype;
+    }
+    finprimaryKey
+
+    @PutMapping("/nomapplication/mintable")
+    public Returntype  update(@RequestBody nomtablexx table){
+        Returntype returntype = new Returntype();
+        try {
+            nomtablexx mintable = mintableService.findById(table.getIdmintable());
+            debutsynatxeget
+                if(table.getNomcolonnexx() !=null){
+                    mintable.setNomcolonnexx(table.getNomcolonnexx());
+                }
+            finsynatxeget
+            mintableService.update(mintable);
+            returntype = new Returntype(null,"update");
+        } catch (Exception e) {
+            returntype = new Returntype(e.getMessage(),null);
+            return returntype;
+        }
+        return returntype;
+    }
+
+    @PostMapping("/nomapplication/nomtablexx")
+    public Returntype  insertpost(@RequestBody nomtablexx table){
+        Returntype returntype = new Returntype();
+        try {
+        conditionsequence
+            longvaluexx
+
+            finlongvaluexx
+            stringvaluexx
+                table.setNomcolonnexx(ModelBuilderExtensions.("mintable"));
+            finstringvaluexx
+        finconditionsequence
+            mintableService.update(table);
+            returntype = new Returntype(null,"insert");
+        } catch (Exception e) {
+            returntype = new Returntype(e.getMessage(),null);
+            return returntype;
+        }
+        return returntype;
+    }
+    @PostMapping("/nomapplication/nomtablexxup")
+    public Returntype  insertup(@RequestBody nomtablexx table){
+        Returntype returntype = new Returntype();
+        try {
+            nomtablexx mintable = mintableService.findById(table.getIdmintable());
+            debutsynatxeget
+                if(table.getNomcolonnexx() !=null){
+                    mintable.setNomcolonnexx(table.getNomcolonnexx());
+                }
+            finsynatxeget
+            mintableService.update(mintable);
+            returntype = new Returntype(null,"insert");
+        } catch (Exception e) {
+            returntype = new Returntype(e.getMessage(),null);
+            return returntype;
+        }
+        return returntype;
+    }
+}

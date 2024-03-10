@@ -1,0 +1,44 @@
+/home/mertina/Bureau/L3/S5/Evaluation/ProjetSpring/senderMail/src/main/java/com/pack/senderMail/Service/nomtablexxService.java
+package com.pack.senderMail.Service;
+
+import com.pack.senderMail.Entity.nomtablexx;
+import com.pack.senderMail.Repository.nomtablexxRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@Service
+public class nomtablexxService {
+    nomtablexxRepository mintableRepository;
+
+    @Autowired
+    public nomtablexxService(nomtablexxRepository mintableRepository){
+        this.mintableRepository=mintableRepository;
+    }
+
+    public java.util.List<nomtablexx> findAll(){
+        return mintableRepository.findAll();
+    }
+
+    primaryKey
+    public nomtablexx findById(Typexx idnomtablexx ){
+        return mintableRepository.findById(idnomtablexx).get();
+    }
+    public void delete(Typexx idnomtablexx){
+        try{
+            mintableRepository.delete(idnomtablexx);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    finprimaryKey
+
+    public void update(nomtablexx table){
+        mintableRepository.save(table);
+    }
+
+    public java.util.List<nomtablexx> pagination(Long debut){
+        return mintableRepository.pagination(debut);
+    }
+
+}

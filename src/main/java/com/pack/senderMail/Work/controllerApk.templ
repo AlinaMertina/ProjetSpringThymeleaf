@@ -1,0 +1,89 @@
+/home/mertina/Bureau/L3/S5/Evaluation/ProjetSpring/senderMail/src/main/java/com/pack/senderMail/Controlleur/nomtablexxApkController.java
+package com.pack.senderMail.Controlleur;
+import com.pack.senderMail.Entity.*;
+import com.pack.senderMail.Service.*;
+import java.text.SimpleDateFormat;
+import com.pack.senderMail.Work.Returntype;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+
+@Controller
+@RequiredArgsConstructor
+public class nomtablexxApkController {
+    
+    serviceforeignkey
+        private final NomcolonnexxService nomcolonnexxService;
+    finserviceforeignkey
+
+    public void alimentation(Model model){
+        serviceforeignkey
+        model.addAttribute("listenomcolonnexx", nomcolonnexxService.findAll());
+        finserviceforeignkey
+    }
+
+
+
+    private final nomtablexxService mintableService;
+
+    debutforeignkey1ligne
+        private final V_mintableService v_mintableService;
+    finforeignkey1ligne
+
+    Long suivant =0L;
+    Long precedent =0L;
+    
+    @GetMapping("/nomapplication/nomtablexxpagprecedent")
+    public String paginationprecedent(Model model ){
+        debutwithoutforeignkey
+            model.addAttribute("liste", mintableService.pagination(precedent) );
+        finwithoutforeignkey
+
+        debutforeignkey1ligne
+            model.addAttribute("liste", v_mintableService.pagination(precedent) );
+        finforeignkey1ligne
+
+        alimentation(model);
+        if(precedent >0 ){
+            precedent =precedent -5;
+        }
+        return  "nomtablexx";
+    }
+    @GetMapping("/nomapplication/nomtablexxpagsuivant")
+    public String paginationsuivant( Model model ){
+        debutwithoutforeignkey
+            model.addAttribute("liste", mintableService.pagination(suivant) );
+        finwithoutforeignkey
+
+        debutforeignkey1ligne
+            model.addAttribute("liste", v_mintableService.pagination(suivant) );
+        finforeignkey1ligne
+
+        alimentation(model);
+        precedent=suivant-5;
+        suivant =suivant +5;
+        return  "nomtablexx";
+    }
+    primaryKey
+    @GetMapping("/nomapplication/nomtablexxdel")
+    public String delete(@RequestParam("id") Typexx id, Model model ){
+        mintableService.delete(id);
+        return paginationprecedent(model);
+    }
+    finprimaryKey
+
+}
+

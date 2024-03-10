@@ -1,0 +1,19 @@
+#conteneur {
+    width: 100%; /* Vous pouvez ajuster la largeur selon vos besoins */
+    height: 600px; /* Vous pouvez ajuster la hauteur selon vos besoins */
+    overflow: auto; /* Ajoute une barre de défilement automatiquement si nécessaire */
+    border: 1px solid #ccc; /* Une bordure pour mieux visualiser le conteneur */
+    background-color: white
+}
+
+/* Style de la table (exemple) */
+#maTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#maTable th, #maTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}

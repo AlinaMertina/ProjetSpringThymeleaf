@@ -1,0 +1,21 @@
+/home/mertina/Bureau/L3/S5/Evaluation/ProjetSpring/senderMail/src/main/java/com/pack/senderMail/Repository/nomtablexxRepository.java
+package com.pack.senderMail.Repository;
+import com.pack.senderMail.Entity.nomtablexx;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+public interface nomtablexxRepository  extends JpaRepository<nomtablexx,Long>{
+    
+    primaryKey
+    
+    @Query(value = "select * from mintable where nomcolonnexx=:nomcolonnexx", nativeQuery = true)
+    public java.util.Optional<nomtablexx> findOne(@Param("nomcolonnexx") Typexx nomcolonnexx);
+    
+    @Query(value = "delete from mintable where nomcolonnexx=:nomcolonnexx", nativeQuery = true)
+    public void delete(@Param("nomcolonnexx") Typexx nomcolonnexx);
+
+    finprimaryKey
+
+    @Query(value = "select * from mintable  limit 5 OFFSET :debut", nativeQuery = true)
+    public java.util.List<nomtablexx> pagination(@Param("debut") Long debut);
+}

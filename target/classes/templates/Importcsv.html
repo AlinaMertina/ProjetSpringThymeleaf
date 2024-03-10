@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CSV Form</title>
+</head>
+<body>
+    <h2>Uploader un fichier CSV</h2>
+    <form action="/uploadCSV" method="post" enctype="multipart/form-data">
+        <label for="file">Sélectionner un fichier CSV :</label><br>
+        <input type="file" id="file" name="file"><br><br>
+        
+        <label for="nomtable">Nom de la table :</label><br>
+        <input type="text" id="nomtable" name="nomtable"><br><br>
+        
+        <button type="submit">Envoyer</button>
+    </form>
+</body>
+</html>
